@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { CartContext } from "../App";
-import { Button, Container, Row, Col, Card } from "react-bootstrap";
 
 function MainCheckout() {
   const [cart, setCart] = useContext(CartContext);
@@ -47,87 +46,53 @@ function MainCheckout() {
     return <p className="mt-5">Cart is empty</p>;
   } else {
     return (
-      <Col lg={12}>
+      <>
         {cart.map((product) => {
           return (
-            <Card className="p-3 mt-4 mb-4" key={product.id}>
-              <Container>
-                <Row>
-                  <Col lg={4}>
-                    <Card.Img
-                      src={product.img}
-                      style={{
-                        objectFit: "contain",
-                        height: "15rem",
-                        marginTop: "1.5rem",
+            <article key={product.id}>
+              <h3>{product.title}</h3>
+              <div>
+                <img src={product.img} />
+                <div className="checkoutInfo">
+                  <p id="price">{`Price: ${product.price} $`}</p>
+                  <p>{`Size: ${product.size}`}</p>
+
+                  <div className="checkoutBtns">
+                    <button
+                      onClick={() => {
+                        decrease(product.id, product.quantity, product.price);
                       }}
-                    />
-                  </Col>
-                  <Col lg={8}>
-                    <Card.Body style={{ height: "5rem" }}>
-                      <Card.Title
-                        className="m-2"
-                        style={{
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap",
-                          overflow: "hidden",
-                        }}
-                      >
-                        {product.title}
-                      </Card.Title>
-                      <Card.Text className="m-2">{`Price: ${product.price} $`}</Card.Text>
-                      <Card.Text className="m-2">{`Size: ${product.size}`}</Card.Text>
-                      <div className="d-flex align-items-center">
-                        <Button
-                          className="m-2"
-                          onClick={() => {
-                            decrease(
-                              product.id,
-                              product.quantity,
-                              product.price
-                            );
-                          }}
-                          variant="dark"
-                        >
-                          -
-                        </Button>
-                        <Card.Text className="m-2">
-                          {product.quantity}
-                        </Card.Text>
-                        <Button
-                          className="m-2"
-                          onClick={() => {
-                            increase(
-                              product.id,
-                              product.quantity,
-                              product.price
-                            );
-                          }}
-                          variant="dark"
-                        >
-                          +
-                        </Button>
-                      </div>
-                      <div className="d-flex justify-content-between mt-5">
-                        <Card.Text className="m-2">{`Total: ${product.total} $`}</Card.Text>
-                        <Button
-                          className="m-2"
-                          variant="danger"
-                          onClick={() => {
-                            deleteItem(product.id);
-                          }}
-                        >
-                          Remove
-                        </Button>
-                      </div>
-                    </Card.Body>
-                  </Col>
-                </Row>
-              </Container>
-            </Card>
+                    >
+                      -
+                    </button>
+                    <p>{product.quantity}</p>
+                    <button
+                      onClick={() => {
+                        increase(product.id, product.quantity, product.price);
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <div className="infoBottom">
+                    <p>{`Total: ${product.total.toFixed(2)} $`}</p>
+                    <button
+                      className="m-2"
+                      variant="danger"
+                      onClick={() => {
+                        deleteItem(product.id);
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
           );
         })}
-      </Col>
+      </>
     );
   }
 }

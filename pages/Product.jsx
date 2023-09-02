@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext, ProductsContext } from "../App";
-import { Col, Container, Form, Row } from "react-bootstrap";
 
 function Product() {
   const { id } = useParams();
@@ -12,6 +11,8 @@ function Product() {
   const [sizeId, setSizeId] = useState("");
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
+  const [modalClass, setModalClass] = useState("addedClose");
+  const [errorModal, setErrorModal] = useState("errorClose");
 
   function addToCart(e) {
     e.preventDefault();
@@ -34,33 +35,59 @@ function Product() {
 
     if (counter === 0) {
       setCart([...cart, newItem]);
+      modalOpen();
+    } else {
+      errorMopen();
     }
   }
 
+  function modalOpen() {
+    setModalClass("addedClose");
+    setErrorModal("errorClose");
+    setModalClass("added");
+    setTimeout(modalClose, 2000);
+  }
+
+  function modalClose() {
+    setModalClass("addedClose");
+  }
+
+  function errorMopen() {
+    setModalClass("addedClose");
+    setErrorModal("errorClose");
+    setErrorModal("errorOpen");
+    setTimeout(errorMclose, 2000);
+  }
+
+  function errorMclose() {
+    setErrorModal("errorClose");
+  }
+
   return (
-    <Container className="p-5" style={{ minHeight: "40rem" }}>
+    <section className="product">
       {products.map((product) => {
         if (product.id == id) {
           return (
-            <div key={product.id}>
-              <Row>
-                <Col lg={12}>
-                  <h2>{product.title}</h2>
-                </Col>
-              </Row>
-              <Row className="pt-5">
-                <Col lg={6}>
-                  <img
-                    src={product.image}
-                    alt={product.title}
-                    style={{ objectFit: "contain", width: "70%" }}
-                  />
-                </Col>
+            <article key={product.id}>
+              <div className={modalClass}>
+                <p>{product.title}</p>
+                <img src={product.image} alt={product.title} />
+                <p>Added to cart!</p>
+              </div>
 
-                <Col lg={6}>
-                  <Form onSubmit={addToCart}>
-                    <h3 className="mt-5">{`${product.price} $`}</h3>
-                    <p className="mt-5">Select size:</p>
+              <div className={errorModal}>
+                <p>Product of this size already added to shopping cart.</p>
+              </div>
+
+              <h2>{product.title}</h2>
+
+              <div>
+                <img src={product.image} alt={product.title} />
+
+                <form onSubmit={addToCart}>
+                  <h3>{`${product.price.toFixed(2)} $`}</h3>
+                  <div>
+                    <p>Select size:</p>
                     <select
                       name="size"
                       onChange={(e) => {
@@ -79,20 +106,21 @@ function Product() {
                       <option value="L">L</option>
                       <option value="XL">XL</option>
                     </select>
-                    <br />
-                    <button type="submit" className="btn btn-dark mt-3">
-                      Add to cart
-                    </button>
-                    <h3 className="mt-5">Description</h3>
+                  </div>
+
+                  <button type="submit">Add to cart</button>
+
+                  <div>
+                    <h3>Description</h3>
                     <p>{product.description}</p>
-                  </Form>
-                </Col>
-              </Row>
-            </div>
+                  </div>
+                </form>
+              </div>
+            </article>
           );
         }
       })}
-    </Container>
+    </section>
   );
 }
 

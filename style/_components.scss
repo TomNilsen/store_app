@@ -1,0 +1,79 @@
+@mixin successBtn {
+  color: white;
+  background-color: rgb(57, 175, 57);
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0.2rem;
+  &:hover {
+    background-color: rgb(44, 147, 44);
+  }
+  &:active {
+    background-color: rgb(32, 120, 32);
+  }
+}
+
+@mixin dangerBtn {
+  color: white;
+  background-color: red;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0.2rem;
+  &:hover {
+    background-color: rgb(204, 0, 0);
+  }
+  &:active {
+    background-color: rgb(171, 0, 0);
+  }
+}
+
+@mixin blackBtn {
+  color: white;
+  background-color: #212529;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0.2rem;
+  &:hover {
+    background-color: #43474a;
+  }
+  &:active {
+    background-color: #16181a;
+  }
+}
+
+@mixin navStartBtn {
+  color: black;
+  background-color: #f8f9fa;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0.2rem 0rem 0rem 0.2rem;
+  &:hover {
+    background-color: #d0d0d0;
+  }
+  &:active {
+    background-color: #a8a8a8;
+  }
+}
+
+@mixin navEndBtn {
+  color: black;
+  background-color: #f8f9fa;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0rem 0.2rem 0.2rem 0rem;
+  &:hover {
+    background-color: #d0d0d0;
+  }
+  &:active {
+    background-color: #a8a8a8;
+  }
+}
+
+@mixin customH1 {
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+@mixin customH2 {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+@mixin customH3 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}

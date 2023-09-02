@@ -4,8 +4,6 @@ import Home from "./pages/Home";
 import CheckOut from "./pages/CheckOut";
 import Product from "./pages/Product";
 import MyNav from "./components/MyNav";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Col, Container, Row } from "react-bootstrap";
 import { House, Envelope, Telephone } from "react-bootstrap-icons";
 
 export const ProductsContext = React.createContext();
@@ -25,31 +23,31 @@ function App() {
       <CartContext.Provider value={[cart, setCart]}>
         <MyNav />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/checkout" element={<CheckOut />} />
-          <Route path="/product/:id" element={<Product />} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/checkout" element={<CheckOut />} />
+            <Route path="/product/:id" element={<Product />} />
+          </Routes>
+        </main>
 
-        <footer className="bg-dark text-light p-5">
-          <Container>
-            <Row>
-              <Col>
-                <h2 className="mb-3">Contact</h2>
+        <footer>
+          <h2>Contact</h2>
 
-                <p>
-                  <House /> Mariatorget 3, Stockholm 118 48, Sweden
-                </p>
-
-                <p>
-                  <Envelope /> info@example.com
-                </p>
-                <p>
-                  <Telephone /> 08-545 789 00
-                </p>
-              </Col>
-            </Row>
-          </Container>
+          <ul>
+            <li>
+              <House />
+              <p>Mariatorget 3, Stockholm 118 48, Sweden</p>
+            </li>
+            <li>
+              <Envelope />
+              <p>info@example.com</p>
+            </li>
+            <li>
+              <Telephone />
+              <p>08-545 789 00</p>
+            </li>
+          </ul>
         </footer>
       </CartContext.Provider>
     </ProductsContext.Provider>
